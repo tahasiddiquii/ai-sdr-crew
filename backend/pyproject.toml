@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-sdr-crew"
+version = "0.1.0"
+description = "An AI sales-development crew (CrewAI): a researcher, qualifier, writer, and reviewer collaborate to research an account, qualify it against an ICP, and draft outreach where every claim is grounded in a research fact. Nothing is sent without human approval. Runs fully offline with a deterministic crew; one env var switches to real CrewAI agents."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Taha Siddiqui", email = "work.tahasiddiqui@gmail.com" }]
+keywords = [
+  "agentic-ai", "crewai", "multi-agent", "sales-development", "ai-sdr", "lead-qualification",
+  "grounding", "no-fabrication", "human-in-the-loop", "fastapi", "nextjs", "eval", "python",
+]
+dependencies = [
+  "pydantic>=2.7",
+  "pydantic-settings>=2.2",
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "sse-starlette>=2.1",
+  "numpy>=1.26",
+  "rich>=13.7",
+  "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# Real role-based crew (CrewAI). Offline default needs none of this.
+crew = ["crewai>=0.80"]
+# Observability — Langfuse v4 (OpenTelemetry-native).
+obs = ["langfuse>=4,<5"]
+dev = ["ruff>=0.6", "pytest>=8.2", "httpx>=0.28", "anyio>=4.4"]
+
+[project.scripts]
+sdr = "sdr.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sdr"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4"]
+ignore = ["E501", "B008", "UP042"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+addopts = "-q"
+testpaths = ["tests"]
