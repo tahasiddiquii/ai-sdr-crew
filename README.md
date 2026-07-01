@@ -31,8 +31,8 @@ CrewAI crew for the writing step; the returned draft goes through the same groun
 
 - Qualification accuracy vs gold ICP tiers: **0.938** (gate >= 0.80)
 - Disqualification recall (bad leads screened out): **1.000**
-- **No-fabrication gate — ungrounded claims across all drafts: 0**
-- **Send gate — campaigns approved without a human: 0**
+- **No-fabrication gate, ungrounded claims across all drafts: 0**
+- **Send gate, campaigns approved without a human: 0**
 
 Accuracy is honestly below 1.0: one account sits on a tier boundary where a human would reasonably
 disagree with the score. See [backend/reports/eval_report_example.md](backend/reports/eval_report_example.md).
